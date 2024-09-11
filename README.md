@@ -2,7 +2,7 @@
 
 <p>A dynamic blogging platform built to enable users to create, search, and engage with blog content, leveraging modern web technologies.</p>
 
-<img src="path-to-your-screenshot.png" alt="Blogify Screenshot" width="600">
+<img src="readme/assets/blogify.png" alt="Blogify Screenshot" width="600">
 
 <h2>Table of Contents</h2>
 <ul>
@@ -78,8 +78,4 @@ npm start</code></pre>
 <h2 id="demo-video">Demo Video</h2>
 <p><a href="path-to-your-video.mp4">Click here to watch the video demo</a></p>
 
-<h2 id="contributors">Contributors</h2>
-<ul>
-  <li><strong>Your Name</strong> – Backend Developer</li>
-  <li><strong>Partner Name</strong> – Frontend Developer</li>
-</ul>
+
