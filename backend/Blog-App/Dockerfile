@@ -1,26 +1,17 @@
-# Stage 1: Build the project using Maven
-FROM maven:3.8.5-openjdk-17 AS build
+# Stage 1: Build
+ARG MAVEN_VERSION=3.8
+FROM maven:$MAVEN_VERSION-jdk-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src src
+COPY mvnw .
+COPY .mvn .
+RUN chmod +x ./mvnw
+RUN ./mvnw clean package -DskipTests
 
-# Copy the pom.xml and download dependencies only (cache layer)
-# COPY pom.xml ./
-# RUN mvn dependency:go-offline -B
-
-# Copy the source code
-COPY  backend/Blog-App .
-
-# Build the project, skipping tests for faster builds
-RUN mvn clean package -DskipTests
-
-# Stage 2: Create a lightweight image with the built JAR file
-FROM openjdk:17.0.1-jdk-slim
-WORKDIR /app
-
-# Copy the JAR file from the build stage
-COPY --from=build /app/target/*.jar blogify.jar
-
-# Expose the necessary port
+# Stage 2: Final Image
+FROM openjdk:17-jdk
+VOLUME /tmp
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
 EXPOSE 8080
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "blogify.jar"]
