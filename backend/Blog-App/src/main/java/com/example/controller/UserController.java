@@ -3,6 +3,7 @@ package com.example.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.entity.User;
 import com.example.service.UserService;
 
+
 @RestController
 @CrossOrigin("*")
+@Validated
 public class UserController {
  @Autowired
  private UserService userService;
  @PostMapping("/add-user")
- public ResponseEntity<?> saveUser(@RequestBody User newUser) {
+ public ResponseEntity<?> saveUser( @RequestBody User newUser) {
      try {
          this.userService.saveUser(newUser);
          return ResponseEntity.ok("User created successfully");

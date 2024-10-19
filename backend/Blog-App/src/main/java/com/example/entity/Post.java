@@ -13,97 +13,54 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tblPost")
 public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int postId;
+
+	@NotBlank
 	@Column(nullable = false)
 	private String postTitle;
+
+	@NotBlank
 	@Column(nullable = false, length = 65535)
 	private String postContent;
 
+	@NotBlank
 	@Column(nullable = false)
-
 	private String postLastmodified;
+
 	@Column(nullable = false)
+	@NotBlank
 	private String postCategory;
+
 	@Column(nullable = false)
+	@NotBlank
 	private String postUser;
 
+	@NotEmpty
 	@Lob
-	@Column(length = 1048576,nullable = true)
+	@Column(length = 1048576, nullable = true)
 	private byte[] postImage;
 
-//	@ManyToOne
-//	@JoinColumn(name = "category_Id")
-//	private Category category;
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "user_Id")
-//	private User user;
-
-	public Post() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public int getPostId() {
-		return postId;
-	}
-
-	public void setPostId(int postId) {
-		this.postId = postId;
-	}
-
-	public String getPostTitle() {
-		return postTitle;
-	}
-
-	public void setPostTitle(String postTitle) {
-		this.postTitle = postTitle;
-	}
-
-	public String getPostContent() {
-		return postContent;
-	}
-
-	public void setPostContent(String postContent) {
-		this.postContent = postContent;
-	}
-
-	public String getPostLastmodified() {
-		return postLastmodified;
-	}
-
-	public void setPostLastmodified(String postLastmodified) {
-		this.postLastmodified = postLastmodified;
-	}
-
-	public String getPostCategory() {
-		return postCategory;
-	}
-
-	public void setPostCategory(String postCategory) {
-		this.postCategory = postCategory;
-	}
-
-	public String getPostUser() {
-		return postUser;
-	}
-
-	public void setPostUser(String postUser) {
-		this.postUser = postUser;
-	}
-
-	public byte[] getPostImage() {
-		return postImage;
-	}
-
-	public void setPostImage(byte[] postImage) {
-		this.postImage = postImage;
-	}
+	// @ManyToOne
+	// @JoinColumn(name = "category_Id")
+	// private Category category;
+	//
+	// @ManyToOne
+	// @JoinColumn(name = "user_Id")
+	// private User user;
 
 	public Post(String postTitle, String postContent, String postLastmodified, String postCategory, String postUser,
 			byte[] postImage) {
@@ -124,8 +81,5 @@ public class Post {
 				+ ", postImage=" + Arrays.toString(postImage) + "]";
 	}
 
-//	public Category getCategory() {
-//		return category;
-//	}
 
 }

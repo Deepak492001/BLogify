@@ -15,14 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.entity.Comment;
 import com.example.repositary.CommentRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @CrossOrigin("*")
 public class CommentController {
 	@Autowired
 	private CommentRepository commentRepository;
-	
+
 	@GetMapping("/all-comments/{postId}")
-	public ResponseEntity<List<Comment>> getAllComments(@PathVariable("postId") int postId) {
+	public ResponseEntity<List<Comment>> getAllComments(@Valid @PathVariable("postId") int postId) {
 	    List<Comment> comments = this.commentRepository.findByPostId(postId);
 	    return ResponseEntity.ok(comments);
 	}

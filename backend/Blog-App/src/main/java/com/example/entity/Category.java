@@ -14,51 +14,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tbl_categories")
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int categoryId;
+
+	@NotBlank
 	@Column(nullable = false)
 	private String categoryName;
 
 	@OneToMany(mappedBy = "postCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Post> posts = new ArrayList<>();
-
-	 public Category() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	    public Category(String categoryName) {
-	        this.categoryName = categoryName;
-	    }
-	
-	public int getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-
-	public List<Post> getPosts() {
-		return posts;
-	}
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
 
 	@Override
 	public String toString() {
@@ -71,8 +47,5 @@ public class Category {
 		this.categoryName = categoryName;
 		this.posts = posts;
 	}
-	
-	
-	
 
 }

@@ -6,49 +6,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tblUserBookMark")
 public class UserBookmarks {
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private int bookmarkId;
-  @Column(length = 100,nullable = false)
- private String userEmail;
-  @Column(nullable = false)
- private int postId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int bookmarkId;
 
-  public UserBookmarks() {
-	// TODO Auto-generated constructor stub
-}
-  
+	@Email
+	@Column(length = 100, nullable = false)
+	private String userEmail;
 
-public int getBookmarkId() {
-	return bookmarkId;
-}
-public void setBookmarkId(int bookmarkId) {
-	this.bookmarkId = bookmarkId;
-}
-public String getUserEmail() {
-	return userEmail;
-}
-public void setUserEmail(String userEmail) {
-	this.userEmail = userEmail;
-}
-public int getPostId() {
-	return postId;
-}
-public void setPostId(int postId) {
-	this.postId = postId;
-}
+	@NotBlank
+	@Column(nullable = false)
+	private int postId;
 
-@Override
-public String toString() {
-	return "UserBookmarks [bookmarkId=" + bookmarkId + ", userEmail=" + userEmail + ", postId=" + postId;
-//			 ", bookmarkStatus=" + bookmarkStatus + "]";
-}
+	@Override
+	public String toString() {
+		return "UserBookmarks [bookmarkId=" + bookmarkId + ", userEmail=" + userEmail + ", postId=" + postId;
+		// ", bookmarkStatus=" + bookmarkStatus + "]";
+	}
 
-
-  
- 
 }

@@ -13,19 +13,39 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tblUsers")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
+
+	@Size(min = 4, message = "Username must be between greater than four characters")
 	@Column(length = 60, nullable = false)
+	@Pattern(regexp = "^[A-Za-z\\s]+$", message = "Invalid name format")
 	private String name;
-	@Column(nullable = false)
+
+	@Email(message = "Invalid email address")
+	@Column
 	private String email;
+
+	@NotBlank // check for null and empty
+	@Size(min = 5, max = 14, message = "Password must be at between 4 and 14 characters")
 	@Column(nullable = false)
 	private String password;
+
+	@NotBlank
 	@Transient
 	@Column(nullable = false)
 	private String confirmPassowrd;
@@ -33,52 +53,10 @@ public class User {
 	@OneToMany(mappedBy = "postUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Post> posts = new HashSet<>();
 
-	public String getConfirmPassowrd() {
-		return confirmPassowrd;
-	}
 
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
 	public User(String email) {
 		// TODO Auto-generated constructor stub
-		this.email=email;
-	}
-	
-	public void setConfirmPassowrd(String confirmPassowrd) {
-		this.confirmPassowrd = confirmPassowrd;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userID) {
-		this.userId = userID;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public User(String name, String email, String password) {
